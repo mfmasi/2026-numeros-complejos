@@ -3,13 +3,22 @@
  */
 package org.example
 
-class Complejo {
-    val greeting: String
-        get() {
-            return "Hello World!"
-        }
-}
+class Complejo{
+    private var real: Int=0
+    private var imaginario: Int=0
+    fun inicializar(real: Int, imaginario: Int){ //esta variable no es igual a la definida recién
+        this.real=real                              //this es 
+        this.imaginario=imaginario
+    }
+    
+    override fun toString(): String {
+        return "(${real},${imaginario})" //el signo $ devuelve el valor guardado
+    }
 
+}
 fun main() {
-    println(App().greeting)
+    var complejo: Complejo
+    complejo=Complejo()
+    complejo.inicializar(3,4)
+    println("mi número complejo es ${complejo.toString()}")
 }
