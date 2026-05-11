@@ -3,23 +3,39 @@
  */
 package org.example
 
-class Complejo{
-    private var real: Int=0
-    private var imaginario: Int=0
-    fun inicializar(real: Int, imaginario: Int){ //esta variable no es igual a la definida recién
-        this.real=real                              //this es 
-        this.imaginario=imaginario
+class Complejo(private var real: Int=0, private var imag: Int=0) {
+                                                //constructor: clase especialñ que se ejecuta cuando se crea un objeto
+    fun inicializar(real:Int,imag:Int){         //esta variable no es igual a la definida recién
+        this.real=real                          //this es la que hace referencia a la variable de fuera de la función
+        this.imag=imag
     }
-    
-    override fun toString(): String {
-        return "(${real},${imaginario})" //el signo $ devuelve el valor guardado
+    fun mostrar(){
+        println(this.toString())                //podés llamar una función antes de ser creado por ser un lenguaje compilado
     }
-
+    fun sumar(otro: Complejo): Complejo {
+        return Complejo(
+            real+otro.real,
+            imag+otro.imag
+        )
+    }
+    fun restar(otro: Complejo): Complejo {
+        return Complejo(
+            real-otro.real,
+            imag-otro.imag
+        )
+    }
+    override fun toString():String{             //override es sobreescribir una función mayor cambiando su funcionalidad
+        return "(${real},${imag})"              //el signo $ devuelve el valor guardado
+    }
 }
+
 fun main() {
     var complejo: Complejo
     complejo=Complejo()
     complejo.inicializar(3,4)
     println("mi número complejo es ${complejo.toString()}")
-    println("hola")
+    var c2:Complejo=Complejo(1,2)                 //creamos el objeto y la referencia. Val, variable estática. Crea un objeto del tipo complejo y se referencia a c2
+    var c3: Complejo
+    c3=complejo.restar(c2)
+    c3.mostrar()
 }
