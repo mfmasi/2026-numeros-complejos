@@ -3,9 +3,9 @@
  */
 package org.example
 
-class Complejo(private var real: Int=0, private var imag: Int=0) {
-                                                //constructor: clase especialñ que se ejecuta cuando se crea un objeto
-    fun inicializar(real:Int,imag:Int){         //esta variable no es igual a la definida recién
+class Complejo(private var real: Double=0.0, private var imag: Double=0.0) {
+                                                //constructor: clase especial que se ejecuta cuando se crea un objeto
+    fun inicializar(real:Double,imag:Double){         //esta variable no es igual a la definida recién
         this.real=real                          //this es la que hace referencia a la variable de fuera de la función
         this.imag=imag
     }
@@ -24,6 +24,23 @@ class Complejo(private var real: Int=0, private var imag: Int=0) {
             imag-otro.imag
         )
     }
+    fun multiplicar(otro: Complejo): Complejo {
+        val nuevoreal=(this.real*otro.real)-(this.imag*otro.imag)
+        val nuevoimag=(this.real*otro.imag)+(this.imag*otro.real)
+        return Complejo(nuevoreal,nuevoimag)
+    }
+
+    fun dividir(otro: Complejo): Complejo {
+        val denominador=(otro.real*otro.real)+(otro.imag*otro.imag)
+        
+        if (denominador==0.0) throw ArithmeticException("División por cero en números complejos")
+        
+        val nuevoreal=((this.real*otro.real)+(this.imag*otro.imag))/denominador
+        val nuevoimag=((this.imag*otro.real)-(this.real*otro.imag))/denominador
+        
+        return Complejo(nuevoreal, nuevoimag)
+                                                //primera regla de la programación: si funciona no lo toques
+    }
     override fun toString():String{             //override es sobreescribir una función mayor cambiando su funcionalidad
         return "(${real},${imag})"              //el signo $ devuelve el valor guardado
     }
@@ -32,10 +49,16 @@ class Complejo(private var real: Int=0, private var imag: Int=0) {
 fun main() {
     var complejo: Complejo
     complejo=Complejo()
-    complejo.inicializar(3,4)
+    complejo.inicializar(3.0,4.0)
     println("mi número complejo es ${complejo.toString()}")
-    var c2:Complejo=Complejo(1,2)                 //creamos el objeto y la referencia. Val, variable estática. Crea un objeto del tipo complejo y se referencia a c2
+    var c2:Complejo=Complejo(1.0,2.0)                 //creamos el objeto y la referencia. Val, variable estática. Crea un objeto del tipo complejo y se referencia a c2
     var c3: Complejo
+    c3=complejo.sumar(c2)
+    c3.mostrar()
     c3=complejo.restar(c2)
+    c3.mostrar()
+    c3=complejo.dividir(c2)
+    c3.mostrar()
+    c3=complejo.multiplicar(c2)
     c3.mostrar()
 }
